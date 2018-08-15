@@ -127,3 +127,7 @@ all `varnishd` required parameters are added.
 
 For more details, check the following link:  
 https://varnish-cache.org/docs/trunk/reference/varnishd.html
+
+## Authors
+
+* Ammar K.

@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  varnish:
+    image: aka1/debian-varnish:latest
+    volumes:
+      - <PATH_TO_USER_CUSTOM_VCL_FILE>:/etc/varnish/default.vcl.template
+    environment:
+      - LISTEN_PORT=8080
+      - MANAGEMENT_INTERFACE_PORT=6082
+      - BACKEND_DEFAULT_HOST=127.0.0.1
+      - BACKEND_DEFAULT_PORT=8080
+      - VSL_RECLEN=255
+      - MALLOC=256m

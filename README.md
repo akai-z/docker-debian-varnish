@@ -131,3 +131,7 @@ https://varnish-cache.org/docs/trunk/reference/varnishd.html
 ## Authors
 
 * Ammar K.
+
+## License
+
+[GNU General Public License version 2](LICENSE)

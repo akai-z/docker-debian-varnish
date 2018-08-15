@@ -11,3 +11,7 @@ For more details, check the following links:
 https://varnish-cache.org/  
 https://en.wikipedia.org/wiki/Varnish_(software)  
 https://github.com/varnishcache/varnish-cache
+
+## Varnish Version
+
+`5.0.0`

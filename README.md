@@ -3,6 +3,9 @@ Docker Debian Varnish
 
 This is a Debian Linux based Varnish cache Docker image.
 
+The image is part of:  
+https://github.com/akai-z/docker-varnish
+
 ## Varnish Version
 
 `5.0.0`

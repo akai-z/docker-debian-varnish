@@ -8,7 +8,7 @@ https://github.com/akai-z/docker-varnish
 
 ## Varnish Version
 
-`5.0.0`
+`6.0.0`
 
 ## Authors
 

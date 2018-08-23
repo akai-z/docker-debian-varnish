@@ -20,10 +20,15 @@ fi
 
 curl -fsSL -o $GPGKEY_FILE $GPGKEY_URL
 
-showgpgkey | grep -q $GPGKEY_FINGERPRINT \
+showgpgkey \
+  | grep -q $GPGKEY_FINGERPRINT \
   || exit 1 # Wrong/Malicious key.
 
-gpgkeys_count=$(showgpgkey | grep -c "^${GPGKEY_PUB_LABEL}")
+gpgkeys_count=$( \
+  showgpgkey \
+  | grep -c "^${GPGKEY_PUB_LABEL}" \
+)
+
 if [ $gpgkeys_count -gt 1 ]; then
   exit 1 # Malicious key.
 fi

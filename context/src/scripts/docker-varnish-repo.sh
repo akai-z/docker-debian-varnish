@@ -11,8 +11,6 @@ readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GNUPG_DIR="/root/.gnupg"
 
-alias showgpgkey="gpg -q --dry-run --with-colons --import-options import-show --import $GPGKEY_FILE"
-
 if [ ! -d $GNUPG_DIR ]; then
   mkdir $GNUPG_DIR
   chmod 700 $GNUPG_DIR
@@ -20,12 +18,20 @@ fi
 
 curl -fsSL -o $GPGKEY_FILE $GPGKEY_URL
 
-showgpgkey \
+gpgkey="$( \
+  gpg -q \
+    --dry-run \
+    --with-colons \
+    --import-options import-show \
+    --import $GPGKEY_FILE \
+)"
+
+echo "$gpgkey" \
   | grep -q $GPGKEY_FINGERPRINT \
   || exit 1 # Wrong/Malicious key.
 
 gpgkeys_count=$( \
-  showgpgkey \
+  echo "$gpgkey" \
   | grep -c "^${GPGKEY_PUB_LABEL}" \
 )
 

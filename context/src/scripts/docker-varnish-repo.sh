@@ -2,17 +2,18 @@
 
 set -e
 
-readonly VERSION="60"
-readonly GPGKEY_FINGERPRINT="4E8B9DBA"
-readonly REPO_BASE_URL="https://packagecloud.io/varnishcache/varnish${VERSION}"
-readonly REPO_URL="${REPO_BASE_URL}/debian/"
-readonly GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
-readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GNUPG_DIR="/root/.gnupg"
 
 function add()
 {
+  local VERSION="60"
+  local GPGKEY_FINGERPRINT="4E8B9DBA"
+  local REPO_BASE_URL="https://packagecloud.io/varnishcache/varnish${VERSION}"
+  local REPO_URL="${REPO_BASE_URL}/debian/"
+  local GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
+  local GPGKEY_PUB_LABEL="pub:-:"
+
   if [ ! -d $GNUPG_DIR ]; then
     mkdir $GNUPG_DIR
     chmod 700 $GNUPG_DIR

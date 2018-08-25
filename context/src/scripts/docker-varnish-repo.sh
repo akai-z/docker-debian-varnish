@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -e
 
 readonly VERSION="60"
 readonly GPGKEY_FINGERPRINT="4E8B9DBA"

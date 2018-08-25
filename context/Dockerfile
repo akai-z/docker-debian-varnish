@@ -17,17 +17,7 @@ COPY src/scripts/docker-varnish-repo.sh /usr/local/bin/
 
 RUN set -x \
     && gettext='gettext-base' \
-    && fetchDeps=' \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        gnupg2 \
-        software-properties-common \
-    ' \
-    && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -y \
-        $fetchDeps \
-    && /bin/sh -c /usr/local/bin/docker-varnish-repo.sh \
+    && /usr/local/bin/docker-varnish-repo.sh \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y \
         $gettext \
@@ -36,8 +26,8 @@ RUN set -x \
     && mv /usr/bin/envsubst /tmp/ \
     && apt-get purge --auto-remove -y $gettext $fetchDeps \
     && mv /tmp/envsubst /usr/local/bin/ \
+    && /usr/local/bin/docker-varnish-repo.sh clean \
     && rm -rf /var/lib/apt/lists/* \
-        /etc/apt/sources.list.d/docker_varnish.list \
         /usr/local/bin/docker-varnish-repo.sh \
     && ln -s usr/local/bin/docker-entrypoint.sh / # backward compatibility
 

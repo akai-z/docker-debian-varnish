@@ -4,6 +4,13 @@ set -e
 
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GNUPG_DIR="/root/.gnupg"
+readonly FETCH_DEPS="
+  apt-transport-https
+  ca-certificates
+  curl
+  gnupg2
+  software-properties-common
+"
 
 function add()
 {
@@ -13,6 +20,10 @@ function add()
   local repo_url="${repo_base_url}/debian/"
   local gpgkey_url="${repo_base_url}/gpgkey"
   local gpgkey_pub_label="pub:-:"
+
+  apt-get update
+  apt-get install --no-install-recommends --no-install-suggests -y \
+    $FETCH_DEPS
 
   if [ ! -d $GNUPG_DIR ]; then
     mkdir $GNUPG_DIR
@@ -46,13 +57,12 @@ function add()
 
   echo "deb $repo_url $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/docker_varnish.list
-
-  rm -rf $GPGKEY_FILE $GNUPG_DIR
 }
 
 clean()
 {
-  rm -rf $GPGKEY_FILE $GNUPG_DIR
+  apt-get purge -y --auto-remove $FETCH_DEPS
+  rm -rf $GPGKEY_FILE $GNUPG_DIR /etc/apt/sources.list.d/docker_varnish.list
 }
 
 main()

@@ -24,7 +24,7 @@ RUN set -x \
         libssl-dev \
         varnish \
     && mv /usr/bin/envsubst /tmp/ \
-    && apt-get purge --auto-remove -y $gettext $fetchDeps \
+    && apt-get purge --auto-remove -y $gettext \
     && mv /tmp/envsubst /usr/local/bin/ \
     && /usr/local/bin/docker-varnish-repo.sh clean \
     && rm -rf /var/lib/apt/lists/* \

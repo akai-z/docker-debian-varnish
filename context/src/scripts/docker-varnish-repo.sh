@@ -49,4 +49,9 @@ function add()
   rm -rf $GPGKEY_FILE $GNUPG_DIR
 }
 
+clean()
+{
+  rm -rf $GPGKEY_FILE $GNUPG_DIR
+}
+
 add

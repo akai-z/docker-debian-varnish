@@ -54,4 +54,13 @@ clean()
   rm -rf $GPGKEY_FILE $GNUPG_DIR
 }
 
-add
+main()
+{
+  case "$1" in
+    add)     add;;
+    clean)   clean;;
+    *)       add;;
+  esac
+}
+
+main "$@"

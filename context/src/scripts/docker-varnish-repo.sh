@@ -7,19 +7,19 @@ readonly GNUPG_DIR="/root/.gnupg"
 
 function add()
 {
-  local VERSION="60"
-  local GPGKEY_FINGERPRINT="4E8B9DBA"
-  local REPO_BASE_URL="https://packagecloud.io/varnishcache/varnish${VERSION}"
-  local REPO_URL="${REPO_BASE_URL}/debian/"
-  local GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
-  local GPGKEY_PUB_LABEL="pub:-:"
+  local version="60"
+  local gpgkey_fingerprint="4E8B9DBA"
+  local repo_base_url="https://packagecloud.io/varnishcache/varnish${version}"
+  local repo_url="${repo_base_url}/debian/"
+  local gpgkey_url="${repo_base_url}/gpgkey"
+  local gpgkey_pub_label="pub:-:"
 
   if [ ! -d $GNUPG_DIR ]; then
     mkdir $GNUPG_DIR
     chmod 700 $GNUPG_DIR
   fi
 
-  curl -fsSL -o $GPGKEY_FILE $GPGKEY_URL
+  curl -fsSL -o $GPGKEY_FILE $gpgkey_url
 
   gpgkey="$( \
     gpg -q \
@@ -30,12 +30,12 @@ function add()
   )"
 
   echo "$gpgkey" \
-    | grep -q $GPGKEY_FINGERPRINT \
+    | grep -q $gpgkey_fingerprint \
     || exit 1 # Wrong/Malicious key.
 
   gpgkeys_count=$( \
     echo "$gpgkey" \
-    | grep -c "^${GPGKEY_PUB_LABEL}" \
+    | grep -c "^${gpgkey_pub_label}" \
   )
 
   if [ $gpgkeys_count -gt 1 ]; then
@@ -44,7 +44,7 @@ function add()
 
   apt-key add $GPGKEY_FILE
 
-  echo "deb $REPO_URL $(lsb_release -cs) main" \
+  echo "deb $repo_url $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/docker_varnish.list
 
   rm -rf $GPGKEY_FILE $GNUPG_DIR

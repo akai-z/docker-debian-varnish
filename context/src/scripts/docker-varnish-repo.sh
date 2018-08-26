@@ -12,7 +12,7 @@ readonly FETCH_DEPS="
   software-properties-common
 "
 
-function add()
+add()
 {
   local version="60"
   local gpgkey_fingerprint="4E8B9DBA"

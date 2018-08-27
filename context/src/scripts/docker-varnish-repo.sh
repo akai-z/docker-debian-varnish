@@ -4,6 +4,7 @@ set -e
 
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GNUPG_DIR="/root/.gnupg"
+readonly SOURCE_LIST_FILE="/etc/apt/sources.list.d/docker_varnish.list"
 readonly FETCH_DEPS="
   apt-transport-https
   ca-certificates
@@ -56,13 +57,13 @@ add()
   apt-key add $GPGKEY_FILE
 
   echo "deb $repo_url $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/docker_varnish.list
+    > $SOURCE_LIST_FILE
 }
 
 clean()
 {
   apt-get purge -y --auto-remove $FETCH_DEPS
-  rm -rf $GPGKEY_FILE $GNUPG_DIR /etc/apt/sources.list.d/docker_varnish.list
+  rm -rf $GPGKEY_FILE $GNUPG_DIR $SOURCE_LIST_FILE
 }
 
 main()

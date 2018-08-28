@@ -2,10 +2,8 @@
 
 set -e
 
-if [ "${1#-}" != "$1" ]; then
-  set -- varnishd "$@"
-  exec "$@"
-else
+default_run()
+{
   envsubst < /etc/varnish/default.vcl.template > /etc/varnish/default.vcl
 
   varnishd -a $LISTEN_ADDRESS:$LISTEN_PORT \
@@ -16,4 +14,23 @@ else
     -p vcc_allow_inline_c=on \
     -p 'cc_command=exec cc -fpic -shared -Wl,-x -o %o %s -lcrypto -lssl' \
     -s malloc,$MALLOC
-fi
+}
+
+clean_run()
+{
+  set -- varnishd "$@"
+  exec "$@"
+
+  exit 0
+}
+
+main()
+{
+  if [ "${1#-}" != "$1" ]; then
+    clean_run "$@"
+  fi
+
+  default_run
+}
+
+main "$@"

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -e
 
 if [ "${1#-}" != "$1" ]; then
   set -- varnishd "$@"

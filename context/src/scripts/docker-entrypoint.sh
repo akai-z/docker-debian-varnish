@@ -10,7 +10,7 @@ default_run()
 
   varnishd -a $LISTEN_ADDRESS:$LISTEN_PORT \
     -T $MANAGEMENT_INTERFACE_ADDRESS:$MANAGEMENT_INTERFACE_PORT \
-    -Ff /etc/varnish/default.vcl \
+    -Ff $vcl_file \
     -p feature=+esi_disable_xml_check,+esi_ignore_other_elements \
     -p vsl_reclen=$VSL_RECLEN \
     -p vcc_allow_inline_c=on \

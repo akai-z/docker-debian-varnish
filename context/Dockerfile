@@ -12,8 +12,7 @@ ENV LISTEN_ADDRESS="" \
     MALLOC=256m
 
 COPY config/default.vcl.template /etc/varnish/
-COPY scripts/docker-entrypoint.sh /usr/local/bin/
-COPY scripts/docker-varnish-repo.sh /usr/local/bin/
+COPY scripts /usr/local/bin/
 
 RUN set -x \
     && gettext='gettext-base' \

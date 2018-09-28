@@ -6,7 +6,7 @@ default_run()
 {
   local vcl_file="/etc/varnish/default.vcl"
 
-  set_vcl_file $vcl_file
+  vcl_file_set $vcl_file
 
   varnishd -a $LISTEN_ADDRESS:$LISTEN_PORT \
     -T $MANAGEMENT_INTERFACE_ADDRESS:$MANAGEMENT_INTERFACE_PORT \
@@ -26,7 +26,7 @@ clean_run()
   exit 0
 }
 
-set_vcl_file()
+vcl_file_set()
 {
   local vcl_file="$1"
 

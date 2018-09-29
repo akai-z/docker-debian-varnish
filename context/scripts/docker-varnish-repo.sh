@@ -13,8 +13,7 @@ readonly FETCH_DEPS="
   software-properties-common
 "
 
-add()
-{
+add() {
   local version="60"
   local gpgkey_fingerprint="4E8B9DBA"
   local repo_base_url="https://packagecloud.io/varnishcache/varnish${version}"
@@ -32,35 +31,30 @@ add()
     > $SOURCE_LIST_FILE
 }
 
-clean()
-{
+clean() {
   apt-get purge -y --auto-remove $FETCH_DEPS
   rm -rf $GPGKEY_FILE $GNUPG_DIR $SOURCE_LIST_FILE
 }
 
-install_fetch_deps()
-{
+install_fetch_deps() {
   apt-get update
   apt-get install --no-install-recommends --no-install-suggests -y \
     $FETCH_DEPS
 }
 
-create_gnupg_dir()
-{
+create_gnupg_dir() {
   if [ ! -d $GNUPG_DIR ]; then
     mkdir $GNUPG_DIR
     chmod 700 $GNUPG_DIR
   fi
 }
 
-fetch_gpgkey_file()
-{
+fetch_gpgkey_file() {
   local gpgkey_url="$1"
   curl -fsSL -o $GPGKEY_FILE $gpgkey_url
 }
 
-get_gpgkey()
-{
+get_gpgkey() {
   echo "$( \
     gpg -q \
       --dry-run \
@@ -70,8 +64,7 @@ get_gpgkey()
   )"
 }
 
-verify_gpgkey()
-{
+verify_gpgkey() {
   local gpgkey_fingerprint="$1"
   local gpgkey_pub_label="$2"
   local gpgkey="$(get_gpgkey)"
@@ -91,13 +84,11 @@ verify_gpgkey()
   fi
 }
 
-add_gpgkey_to_trusted_keys_list()
-{
+add_gpgkey_to_trusted_keys_list() {
   apt-key add $GPGKEY_FILE
 }
 
-main()
-{
+main() {
   case "$1" in
     add)     add;;
     clean)   clean;;

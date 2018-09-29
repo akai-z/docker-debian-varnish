@@ -2,8 +2,7 @@
 
 set -e
 
-default_run()
-{
+default_run() {
   local vcl_file="/etc/varnish/default.vcl"
 
   vcl_file_set $vcl_file
@@ -18,16 +17,14 @@ default_run()
     -s malloc,$MALLOC
 }
 
-clean_run()
-{
+clean_run() {
   set -- varnishd "$@"
   exec "$@"
 
   exit 0
 }
 
-vcl_file_set()
-{
+vcl_file_set() {
   local vcl_file="$1"
 
   envsubst \
@@ -35,8 +32,7 @@ vcl_file_set()
     > $vcl_file
 }
 
-main()
-{
+main() {
   if [ "${1#-}" != "$1" ]; then
     clean_run "$@"
   fi

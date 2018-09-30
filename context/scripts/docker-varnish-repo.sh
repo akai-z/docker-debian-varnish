@@ -26,10 +26,7 @@ repo_add() {
   gpgkey_file_fetch $gpgkey_url
   gpgkey_verification $gpgkey_fingerprint $gpgkey_pub_label
   trusted_keys_list_gpgkey_add
-
-  echo "deb $repo_url $(lsb_release -cs) main" \
-    > $SOURCE_LIST_FILE
-
+  sources_list_repo_url_add $repo_url
   gpgkey_file_remove
 }
 
@@ -88,6 +85,13 @@ gpgkey_verification() {
 
 trusted_keys_list_gpgkey_add() {
   apt-key add $GPGKEY_FILE
+}
+
+sources_list_repo_url_add() {
+  local repo_url="$1"
+
+  echo "deb $repo_url $(lsb_release -cs) main" \
+    > $SOURCE_LIST_FILE
 }
 
 gpgkey_file_remove() {

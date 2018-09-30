@@ -13,7 +13,7 @@ readonly FETCH_DEPS="
   software-properties-common
 "
 
-add() {
+repo_add() {
   local version="60"
   local gpgkey_fingerprint="4E8B9DBA"
   local repo_base_url="https://packagecloud.io/varnishcache/varnish${version}"
@@ -21,11 +21,11 @@ add() {
   local gpgkey_url="${repo_base_url}/gpgkey"
   local gpgkey_pub_label="pub:-:"
 
-  install_fetch_deps
-  create_gnupg_dir
-  fetch_gpgkey_file $gpgkey_url
-  verify_gpgkey $gpgkey_fingerprint $gpgkey_pub_label
-  add_gpgkey_to_trusted_keys_list
+  fetch_deps_install
+  gnupg_dir_create
+  gpgkey_file_fetch $gpgkey_url
+  gpgkey_verification $gpgkey_fingerprint $gpgkey_pub_label
+  trusted_keys_list_gpgkey_add
 
   echo "deb $repo_url $(lsb_release -cs) main" \
     > $SOURCE_LIST_FILE
@@ -36,25 +36,25 @@ clean() {
   rm -rf $GPGKEY_FILE $GNUPG_DIR $SOURCE_LIST_FILE
 }
 
-install_fetch_deps() {
+fetch_deps_install() {
   apt-get update
   apt-get install --no-install-recommends --no-install-suggests -y \
     $FETCH_DEPS
 }
 
-create_gnupg_dir() {
+gnupg_dir_create() {
   if [ ! -d $GNUPG_DIR ]; then
     mkdir $GNUPG_DIR
     chmod 700 $GNUPG_DIR
   fi
 }
 
-fetch_gpgkey_file() {
+gpgkey_file_fetch() {
   local gpgkey_url="$1"
   curl -fsSL -o $GPGKEY_FILE $gpgkey_url
 }
 
-get_gpgkey() {
+gpgkey() {
   echo "$( \
     gpg -q \
       --dry-run \
@@ -64,10 +64,10 @@ get_gpgkey() {
   )"
 }
 
-verify_gpgkey() {
+gpgkey_verification() {
   local gpgkey_fingerprint="$1"
   local gpgkey_pub_label="$2"
-  local gpgkey="$(get_gpgkey)"
+  local gpgkey="$(gpgkey)"
   local gpgkeys_count
 
   echo "$gpgkey" \
@@ -84,15 +84,15 @@ verify_gpgkey() {
   fi
 }
 
-add_gpgkey_to_trusted_keys_list() {
+trusted_keys_list_gpgkey_add() {
   apt-key add $GPGKEY_FILE
 }
 
 main() {
   case "$1" in
-    add)     add;;
+    add)     repo_add;;
     clean)   clean;;
-    *)       add;;
+    *)       repo_add;;
   esac
 }
 

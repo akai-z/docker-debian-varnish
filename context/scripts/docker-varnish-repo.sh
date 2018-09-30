@@ -29,11 +29,13 @@ repo_add() {
 
   echo "deb $repo_url $(lsb_release -cs) main" \
     > $SOURCE_LIST_FILE
+
+  gpgkey_file_remove
 }
 
-clean() {
+fetch_deps_clean() {
   apt-get purge -y --auto-remove $FETCH_DEPS
-  rm -rf $GPGKEY_FILE $GNUPG_DIR $SOURCE_LIST_FILE
+  rm -rf $GNUPG_DIR $SOURCE_LIST_FILE
 }
 
 fetch_deps_install() {
@@ -88,10 +90,14 @@ trusted_keys_list_gpgkey_add() {
   apt-key add $GPGKEY_FILE
 }
 
+gpgkey_file_remove() {
+  rm -rf $GPGKEY_FILE
+}
+
 main() {
   case "$1" in
     add)     repo_add;;
-    clean)   clean;;
+    clean)   fetch_deps_clean;;
     *)       repo_add;;
   esac
 }

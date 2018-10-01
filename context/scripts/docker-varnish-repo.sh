@@ -2,6 +2,12 @@
 
 set -e
 
+readonly VERSION="60"
+readonly GPGKEY_FINGERPRINT="4E8B9DBA"
+readonly REPO_BASE_URL="https://packagecloud.io/varnishcache/varnish${VERSION}"
+readonly REPO_URL="${REPO_BASE_URL}/debian/"
+readonly GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
+readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GNUPG_DIR="/root/.gnupg"
 readonly SOURCE_LIST_FILE="/etc/apt/sources.list.d/docker_varnish.list"

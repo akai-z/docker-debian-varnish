@@ -20,19 +20,12 @@ readonly FETCH_DEPS="
 "
 
 repo_add() {
-  local version="60"
-  local gpgkey_fingerprint="4E8B9DBA"
-  local repo_base_url="https://packagecloud.io/varnishcache/varnish${version}"
-  local repo_url="${repo_base_url}/debian/"
-  local gpgkey_url="${repo_base_url}/gpgkey"
-  local gpgkey_pub_label="pub:-:"
-
   fetch_deps_install
   gnupg_dir_create
-  gpgkey_file_fetch $gpgkey_url
-  gpgkey_verification $gpgkey_fingerprint $gpgkey_pub_label
+  gpgkey_file_fetch
+  gpgkey_verification
   trusted_keys_list_gpgkey_add
-  sources_list_repo_url_add $repo_url
+  sources_list_repo_url_add
   gpgkey_file_remove
 }
 
@@ -55,24 +48,20 @@ gnupg_dir_create() {
 }
 
 gpgkey_file_fetch() {
-  local gpgkey_url="$1"
-
-  curl -fsSL -o $GPGKEY_FILE $gpgkey_url
+  curl -fsSL -o $GPGKEY_FILE $GPGKEY_URL
 }
 
 gpgkey_verification() {
-  local gpgkey_fingerprint="$1"
-  local gpgkey_pub_label="$2"
   local gpgkey="$(gpgkey)"
   local gpgkeys_count
 
   echo "$gpgkey" \
-    | grep -q $gpgkey_fingerprint \
+    | grep -q $GPGKEY_FINGERPRINT \
     || exit 1 # Wrong/Malicious key.
 
   gpgkeys_count=$( \
     echo "$gpgkey" \
-    | grep -c "^${gpgkey_pub_label}" \
+    | grep -c "^${GPGKEY_PUB_LABEL}" \
   )
 
   if [ $gpgkeys_count -ne 1 ]; then
@@ -95,9 +84,7 @@ trusted_keys_list_gpgkey_add() {
 }
 
 sources_list_repo_url_add() {
-  local repo_url="$1"
-
-  echo "deb $repo_url $(lsb_release -cs) main" \
+  echo "deb $REPO_URL $(lsb_release -cs) main" \
     > $SOURCE_LIST_FILE
 }
 

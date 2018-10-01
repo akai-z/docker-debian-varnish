@@ -53,16 +53,6 @@ gpgkey_file_fetch() {
   curl -fsSL -o $GPGKEY_FILE $gpgkey_url
 }
 
-gpgkey() {
-  echo "$( \
-    gpg -q \
-      --dry-run \
-      --with-colons \
-      --import-options import-show \
-      --import $GPGKEY_FILE \
-  )"
-}
-
 gpgkey_verification() {
   local gpgkey_fingerprint="$1"
   local gpgkey_pub_label="$2"
@@ -81,6 +71,16 @@ gpgkey_verification() {
   if [ $gpgkeys_count -ne 1 ]; then
     exit 1 # Malicious key.
   fi
+}
+
+gpgkey() {
+  echo "$( \
+    gpg -q \
+      --dry-run \
+      --with-colons \
+      --import-options import-show \
+      --import $GPGKEY_FILE \
+  )"
 }
 
 trusted_keys_list_gpgkey_add() {

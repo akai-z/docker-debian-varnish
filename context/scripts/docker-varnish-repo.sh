@@ -50,6 +50,7 @@ gnupg_dir_create() {
 
 gpgkey_file_fetch() {
   local gpgkey_url="$1"
+
   curl -fsSL -o $GPGKEY_FILE $gpgkey_url
 }
 

@@ -83,7 +83,7 @@ trusted_keys_list_gpgkey_add() {
   apt-key add $GPGKEY_FILE
 }
 
-sources_list_repo_url_add() {
+package_source_add() {
   echo "deb $REPO_URL $(lsb_release -cs) main" \
     > $SOURCE_LIST_FILE
 }

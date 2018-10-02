@@ -84,8 +84,14 @@ trusted_keys_list_gpgkey_add() {
 }
 
 package_source_add() {
-  echo "deb $REPO_URL $(lsb_release -cs) main" \
+  local dist_name="$(distribution_name)"
+
+  echo "deb $REPO_URL $dist_name main" \
     > $SOURCE_LIST_FILE
+}
+
+distribution_name() {
+  echo "$(lsb_release -cs)"
 }
 
 gpgkey_file_remove() {

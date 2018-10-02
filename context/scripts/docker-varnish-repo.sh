@@ -84,10 +84,11 @@ trusted_keys_list_gpgkey_add() {
 }
 
 package_source_add() {
-  local dist_name="$(distribution_name)"
+  echo "$(package_source)" > $SOURCE_LIST_FILE
+}
 
-  echo "deb $REPO_URL $dist_name main" \
-    > $SOURCE_LIST_FILE
+package_source() {
+  echo "deb $REPO_URL $(distribution_name) main"
 }
 
 distribution_name() {

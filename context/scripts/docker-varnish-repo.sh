@@ -25,7 +25,7 @@ repo_add() {
   gpgkey_file_fetch
   gpgkey_verification
   trusted_keys_list_gpgkey_add
-  sources_list_repo_url_add
+  package_source_add
   gpgkey_file_remove
 }
 

@@ -10,7 +10,8 @@ readonly GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
 readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GNUPG_DIR="/root/.gnupg"
-readonly SOURCE_LIST_FILE="/etc/apt/sources.list.d/docker_varnish.list"
+readonly SOURCES_LIST_DIR="/etc/apt/sources.list.d"
+readonly SOURCE_LIST_FILE="${SOURCES_LIST_DIR}/docker_varnish.list"
 readonly FETCH_DEPS="
   apt-transport-https
   ca-certificates

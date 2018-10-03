@@ -9,7 +9,7 @@ readonly REPO_URL="${REPO_BASE_URL}/debian/"
 readonly GPGKEY_URL="${REPO_BASE_URL}/gpgkey"
 readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
-readonly GNUPG_DIR="/root/.gnupg"
+readonly GPG_DIR="/root/.gnupg"
 readonly SOURCES_LIST_DIR="/etc/apt/sources.list.d"
 readonly PACKAGE_SOURCE_FILE="${SOURCES_LIST_DIR}/docker_varnish.list"
 readonly FETCH_DEPS="
@@ -32,7 +32,7 @@ repo_add() {
 
 fetch_deps_clean() {
   apt-get purge -y --auto-remove $FETCH_DEPS
-  rm -rf $GNUPG_DIR $PACKAGE_SOURCE_FILE
+  rm -rf $GPG_DIR $PACKAGE_SOURCE_FILE
 }
 
 fetch_deps_install() {
@@ -42,9 +42,9 @@ fetch_deps_install() {
 }
 
 gnupg_dir_create() {
-  if [ ! -d $GNUPG_DIR ]; then
-    mkdir $GNUPG_DIR
-    chmod 700 $GNUPG_DIR
+  if [ ! -d $GPG_DIR ]; then
+    mkdir $GPG_DIR
+    chmod 700 $GPG_DIR
   fi
 }
 

@@ -22,7 +22,7 @@ readonly FETCH_DEPS="
 
 repo_add() {
   fetch_deps_install
-  gnupg_dir_create
+  gpg_dir_create
   gpgkey_file_fetch
   gpgkey_verification
   trusted_keys_list_gpgkey_add
@@ -41,7 +41,7 @@ fetch_deps_install() {
     $FETCH_DEPS
 }
 
-gnupg_dir_create() {
+gpg_dir_create() {
   if [ ! -d $GPG_DIR ]; then
     mkdir $GPG_DIR
     chmod 700 $GPG_DIR

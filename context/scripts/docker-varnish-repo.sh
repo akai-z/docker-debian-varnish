@@ -11,7 +11,7 @@ readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GPGKEY_FILE="docker_varnish_gpgkey"
 readonly GNUPG_DIR="/root/.gnupg"
 readonly SOURCES_LIST_DIR="/etc/apt/sources.list.d"
-readonly SOURCE_LIST_FILE="${SOURCES_LIST_DIR}/docker_varnish.list"
+readonly PACKAGE_SOURCE_FILE="${SOURCES_LIST_DIR}/docker_varnish.list"
 readonly FETCH_DEPS="
   apt-transport-https
   ca-certificates
@@ -32,7 +32,7 @@ repo_add() {
 
 fetch_deps_clean() {
   apt-get purge -y --auto-remove $FETCH_DEPS
-  rm -rf $GNUPG_DIR $SOURCE_LIST_FILE
+  rm -rf $GNUPG_DIR $PACKAGE_SOURCE_FILE
 }
 
 fetch_deps_install() {
@@ -85,7 +85,7 @@ trusted_keys_list_gpgkey_add() {
 }
 
 package_source_add() {
-  echo "$(package_source)" > $SOURCE_LIST_FILE
+  echo "$(package_source)" > $PACKAGE_SOURCE_FILE
 }
 
 package_source() {

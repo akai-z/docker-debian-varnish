@@ -92,7 +92,13 @@ package_source_add() {
 }
 
 package_source() {
-  echo "deb $REPO_URL $(distribution_name) main"
+  echo "$( \
+    printf "$PACKAGE_SOURCE_FORMAT" \
+      "$PACKAGE_ARCHIVE_TYPE" \
+      "$REPO_URL" \
+      "$(distribution_name)" \
+      "$PACKAGE_SOURCE_COMPONENTS" \
+  )"
 }
 
 distribution_name() {

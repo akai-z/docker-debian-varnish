@@ -96,6 +96,7 @@ package_source() {
   echo "$( \
     printf "$PACKAGE_SOURCE_FORMAT" \
       "$PACKAGE_ARCHIVE_TYPE" \
+      "$(package_arch)" \
       "$REPO_URL" \
       "$(distribution_name)" \
       "$PACKAGE_SOURCE_COMPONENTS" \

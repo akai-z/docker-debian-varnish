@@ -102,6 +102,16 @@ package_source() {
   )"
 }
 
+package_arch() {
+  local arch=""
+
+  if [ $REPO_ARCH ]; then
+    arch="[arch=${REPO_ARCH}]"
+  fi
+
+  echo $arch
+}
+
 distribution_name() {
   echo "$(lsb_release -cs)"
 }

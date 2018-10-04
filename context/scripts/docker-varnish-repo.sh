@@ -105,8 +105,8 @@ package_source() {
 package_arch() {
   local arch=""
 
-  if [ $REPO_ARCH ]; then
-    arch="[arch=${REPO_ARCH}]"
+  if [ $PACKAGE_ARCH ]; then
+    arch="[arch=${PACKAGE_ARCH}]"
   fi
 
   echo $arch

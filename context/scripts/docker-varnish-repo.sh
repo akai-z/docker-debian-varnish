@@ -3,7 +3,7 @@
 set -e
 
 readonly VERSION="60"
-readonly GPGKEY_FINGERPRINT="4E8B9DBA"
+readonly GPGKEY_FINGERPRINT="7C5B46721AF00FD57E68E6E8D2605BF74E8B9DBA"
 readonly REPO_BASE_URL="https://packagecloud.io/varnishcache/varnish${VERSION}"
 readonly REPO_URL="${REPO_BASE_URL}/debian/"
 readonly GPGKEY_URL="${REPO_BASE_URL}/gpgkey"

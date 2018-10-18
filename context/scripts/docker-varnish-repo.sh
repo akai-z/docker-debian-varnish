@@ -62,6 +62,15 @@ gpgkey_verification() {
   local gpgkey="$(gpgkey)"
   local gpgkeys_count
 
+  gpgkeys_count=$( \
+    echo "$gpgkey" \
+    | grep -c "^${GPGKEY_PUB_LABEL}" \
+  )
+
+  if [ $gpgkeys_count -ne 1 ]; then
+    exit 1 # Malicious key.
+  fi
+
   if [ "${#GPGKEY_FINGERPRINT}" -ne "$GPGKEY_FINGERPRINT_LENGTH" ] || \
     [ "${#GPG_SUBKEY_FINGERPRINT}" -ne "$GPGKEY_FINGERPRINT_LENGTH" ]
   then
@@ -75,15 +84,6 @@ gpgkey_verification() {
   echo "$gpgkey" \
     | grep -q $GPG_SUBKEY_FINGERPRINT \
     || exit 1 # Wrong/Malicious key.
-
-  gpgkeys_count=$( \
-    echo "$gpgkey" \
-    | grep -c "^${GPGKEY_PUB_LABEL}" \
-  )
-
-  if [ $gpgkeys_count -ne 1 ]; then
-    exit 1 # Malicious key.
-  fi
 }
 
 gpgkey() {

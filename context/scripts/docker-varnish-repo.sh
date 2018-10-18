@@ -91,6 +91,7 @@ gpgkey() {
     gpg -q \
       --dry-run \
       --with-colons \
+      --with-subkey-fingerprint \
       --import-options import-show \
       --import "$GPGKEY_FILE" \
   )"

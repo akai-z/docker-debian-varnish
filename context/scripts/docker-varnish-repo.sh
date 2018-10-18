@@ -62,7 +62,9 @@ gpgkey_verification() {
   local gpgkey="$(gpgkey)"
   local gpgkeys_count
 
-  if [ "${#GPGKEY_FINGERPRINT}" -ne "$GPGKEY_FINGERPRINT_LENGTH" ]; then
+  if [ "${#GPGKEY_FINGERPRINT}" -ne "$GPGKEY_FINGERPRINT_LENGTH" ] || \
+    [ "${#GPG_SUBKEY_FINGERPRINT}" -ne "$GPGKEY_FINGERPRINT_LENGTH" ]
+  then
     exit 1 # Invalid key fingerprint.
   fi
 

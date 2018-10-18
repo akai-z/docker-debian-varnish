@@ -72,6 +72,10 @@ gpgkey_verification() {
     | grep -q $GPGKEY_FINGERPRINT \
     || exit 1 # Wrong/Malicious key.
 
+  echo "$gpgkey" \
+    | grep -q $GPG_SUBKEY_FINGERPRINT \
+    || exit 1 # Wrong/Malicious key.
+
   gpgkeys_count=$( \
     echo "$gpgkey" \
     | grep -c "^${GPGKEY_PUB_LABEL}" \

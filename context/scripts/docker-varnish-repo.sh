@@ -37,25 +37,25 @@ repo_add() {
 }
 
 fetch_deps_clean() {
-  apt-get purge -y --auto-remove $FETCH_DEPS
-  rm -rf $GPG_DIR $PACKAGE_SOURCE_FILE
+  apt-get purge -y --auto-remove "$FETCH_DEPS"
+  rm -rf "$GPG_DIR" "$PACKAGE_SOURCE_FILE"
 }
 
 fetch_deps_install() {
   apt-get update
   apt-get install --no-install-recommends --no-install-suggests -y \
-    $FETCH_DEPS
+    "$FETCH_DEPS"
 }
 
 gpg_dir_create() {
-  if [ ! -d $GPG_DIR ]; then
-    mkdir $GPG_DIR
-    chmod 700 $GPG_DIR
+  if [ ! -d "$GPG_DIR" ]; then
+    mkdir "$GPG_DIR"
+    chmod 700 "$GPG_DIR"
   fi
 }
 
 gpgkey_file_fetch() {
-  curl -fsSL -o $GPGKEY_FILE $GPGKEY_URL
+  curl -fsSL -o "$GPGKEY_FILE" "$GPGKEY_URL"
 }
 
 gpgkey_verification() {
@@ -67,7 +67,7 @@ gpgkey_verification() {
     | grep -c "^${GPGKEY_PUB_LABEL}" \
   )
 
-  if [ $gpgkeys_count -ne 1 ]; then
+  if [ "$gpgkeys_count" -ne 1 ]; then
     exit 1 # Malicious key.
   fi
 
@@ -78,11 +78,11 @@ gpgkey_verification() {
   fi
 
   echo "$gpgkey" \
-    | grep -q $GPGKEY_FINGERPRINT \
+    | grep -q "$GPGKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 
   echo "$gpgkey" \
-    | grep -q $GPG_SUBKEY_FINGERPRINT \
+    | grep -q "$GPG_SUBKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 }
 
@@ -92,12 +92,12 @@ gpgkey() {
       --dry-run \
       --with-colons \
       --import-options import-show \
-      --import $GPGKEY_FILE \
+      --import "$GPGKEY_FILE" \
   )"
 }
 
 trusted_keys_list_gpgkey_add() {
-  apt-key add $GPGKEY_FILE
+  apt-key add "$GPGKEY_FILE"
 }
 
 package_source_add() {
@@ -118,11 +118,11 @@ package_source() {
 package_arch() {
   local arch=""
 
-  if [ $PACKAGE_ARCH ]; then
+  if [ "$PACKAGE_ARCH" ]; then
     arch="[arch=${PACKAGE_ARCH}]"
   fi
 
-  echo $arch
+  echo "$arch"
 }
 
 distribution_name() {
@@ -130,7 +130,7 @@ distribution_name() {
 }
 
 gpgkey_file_remove() {
-  rm -rf $GPGKEY_FILE
+  rm -rf "$GPGKEY_FILE"
 }
 
 main() {

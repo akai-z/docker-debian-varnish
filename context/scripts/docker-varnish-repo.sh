@@ -98,8 +98,9 @@ gpgkeys_count() {
 
 gpgkey_fingerprint_find() {
   local gpgkey="$1"
+  local fingerprint="$2"
 
-  echo "$gpgkey" | grep -q "$GPGKEY_FINGERPRINT"
+  echo "$gpgkey" | grep -q "$fingerprint"
 }
 
 trusted_keys_list_gpgkey_add() {

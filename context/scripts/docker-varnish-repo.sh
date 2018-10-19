@@ -97,6 +97,12 @@ gpgkey() {
   )"
 }
 
+gpgkeys_count() {
+  local gpgkey="$1"
+
+  echo "$gpgkey" | grep -c "^${GPGKEY_PUB_LABEL}"
+}
+
 trusted_keys_list_gpgkey_add() {
   apt-key add "$GPGKEY_FILE"
 }

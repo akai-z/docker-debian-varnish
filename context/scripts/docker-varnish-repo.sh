@@ -60,12 +60,7 @@ gpgkey_file_fetch() {
 
 gpgkey_verification() {
   local gpgkey="$(gpgkey)"
-  local gpgkeys_count
-
-  gpgkeys_count=$( \
-    echo "$gpgkey" \
-    | grep -c "^${GPGKEY_PUB_LABEL}" \
-  )
+  local gpgkeys_count="$(gpgkeys_count "$gpgkey")"
 
   if [ "$gpgkeys_count" -ne 1 ]; then
     exit 1 # Malicious key.
@@ -77,12 +72,10 @@ gpgkey_verification() {
     exit 1 # Invalid key fingerprint.
   fi
 
-  echo "$gpgkey" \
-    | grep -q "$GPGKEY_FINGERPRINT" \
+  gpgkey_fingerprint_find "$GPGKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 
-  echo "$gpgkey" \
-    | grep -q "$GPG_SUBKEY_FINGERPRINT" \
+  gpgkey_fingerprint_find "$GPG_SUBKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 }
 

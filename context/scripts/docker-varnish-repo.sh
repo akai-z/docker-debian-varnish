@@ -103,6 +103,12 @@ gpgkeys_count() {
   echo "$gpgkey" | grep -c "^${GPGKEY_PUB_LABEL}"
 }
 
+gpgkey_fingerprint_find() {
+  local gpgkey="$1"
+
+  echo "$gpgkey" | grep -q "$GPGKEY_FINGERPRINT"
+}
+
 trusted_keys_list_gpgkey_add() {
   apt-key add "$GPGKEY_FILE"
 }

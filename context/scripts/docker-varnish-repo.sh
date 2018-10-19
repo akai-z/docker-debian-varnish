@@ -72,10 +72,10 @@ gpgkey_verification() {
     exit 1 # Invalid key fingerprint.
   fi
 
-  gpgkey_fingerprint_find "$GPGKEY_FINGERPRINT" \
+  gpgkey_fingerprint_find "$gpgkey" "$GPGKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 
-  gpgkey_fingerprint_find "$GPG_SUBKEY_FINGERPRINT" \
+  gpgkey_fingerprint_find "$gpgkey" "$GPG_SUBKEY_FINGERPRINT" \
     || exit 1 # Wrong/Malicious key.
 }
 

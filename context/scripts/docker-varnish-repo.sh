@@ -16,7 +16,7 @@ readonly GPGKEY_PUB_LABEL="pub:-:"
 readonly GPGKEY_FILE="docker-varnish-gpgkey"
 readonly GPG_DIR="/root/.gnupg"
 readonly SOURCES_LIST_DIR="/etc/apt/sources.list.d"
-readonly PACKAGE_SOURCE_FILE="${SOURCES_LIST_DIR}/docker_varnish.list"
+readonly PACKAGE_SOURCE_FILE="${SOURCES_LIST_DIR}/docker-varnish.list"
 readonly PACKAGE_SOURCE_FORMAT="%s %s %s %s %s"
 readonly FETCH_DEPS="
   apt-transport-https

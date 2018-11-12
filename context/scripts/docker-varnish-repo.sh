@@ -37,14 +37,14 @@ repo_add() {
 }
 
 fetch_deps_clean() {
-  apt-get purge -y --auto-remove "$FETCH_DEPS"
+  apt-get purge -y --auto-remove $FETCH_DEPS
   rm -rf "$GPG_DIR" "$PACKAGE_SOURCE_FILE"
 }
 
 fetch_deps_install() {
   apt-get update
   apt-get install --no-install-recommends --no-install-suggests -y \
-    "$FETCH_DEPS"
+    $FETCH_DEPS
 }
 
 gpg_dir_create() {

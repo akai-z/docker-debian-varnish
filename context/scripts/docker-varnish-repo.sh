@@ -126,7 +126,7 @@ package_arch() {
   local arch=""
 
   if [ "$PACKAGE_ARCH" ]; then
-    arch="[arch=${PACKAGE_ARCH}]"
+    arch=" [arch=${PACKAGE_ARCH}]"
   fi
 
   echo "$arch"

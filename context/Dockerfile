@@ -16,7 +16,7 @@ COPY scripts /usr/local/bin/
 
 RUN set -x \
     && gettext='gettext-base' \
-    && /usr/local/bin/docker-varnish-repo.sh \
+    && docker-varnish-repo.sh \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y \
         $gettext \
@@ -25,7 +25,7 @@ RUN set -x \
     && mv /usr/bin/envsubst /tmp/ \
     && apt-get purge --auto-remove -y $gettext \
     && mv /tmp/envsubst /usr/local/bin/ \
-    && /usr/local/bin/docker-varnish-repo.sh clean \
+    && docker-varnish-repo.sh clean \
     && rm -rf /var/lib/apt/lists/* \
         /usr/local/bin/docker-varnish-repo.sh \
     && ln -s usr/local/bin/docker-entrypoint.sh / # backward compatibility

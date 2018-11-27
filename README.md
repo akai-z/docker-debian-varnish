@@ -1,5 +1,3 @@
-# Docker Debian Varnish
-
 This is a Debian Linux based Varnish cache Docker image.
 
 The image is part of:  
